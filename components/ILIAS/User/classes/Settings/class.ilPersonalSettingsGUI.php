@@ -376,6 +376,14 @@ class ilPersonalSettingsGUI
             $si->addOption($repobj);
         }
 
+        $memberships = new ilCheckboxInputGUI(
+            $this->lng->txt('show_memberships_on_dashboard'),
+            'show_pd_memberships'
+        );
+        $memberships->setValue('1');
+        $memberships->setChecked($this->user->getPref('show_pd_memberships') !== '0');
+        $this->form->addItem($memberships);
+
         $this->form->addCommandButton('saveGeneralSettings', $this->lng->txt('save'));
         $this->form->setTitle($this->lng->txt('general_settings'));
         $this->form->setFormAction($this->ctrl->getFormAction($this));
@@ -416,6 +424,11 @@ class ilPersonalSettingsGUI
                     $this->navigation_history->deleteSessionEntries();
                 }
             }
+
+            $this->user->setPref(
+                'show_pd_memberships',
+                $this->form->getInput('show_pd_memberships') ? '1' : '0'
+            );
 
             if ($this->workWithUserSetting('session_reminder')) {
                 $this->user->setPref(

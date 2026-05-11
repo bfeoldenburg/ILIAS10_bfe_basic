@@ -36,6 +36,7 @@ use ILIAS\UI\Implementation\Render\Template;
 use ILIAS\UI\Renderer as RendererInterface;
 use ILIAS\Data\URI;
 use ILIAS\UI\Implementation\Render\ResourceRegistry;
+use ilUtil;
 use LogicException;
 
 class Renderer extends AbstractComponentRenderer
@@ -141,9 +142,11 @@ class Renderer extends AbstractComponentRenderer
 
                 $trigger_signal = $component->getTriggerSignal($mb_id, $component::ENTRY_ACTION_TRIGGER);
                 $this->trigger_signals[] = $trigger_signal;
-                $button = $f->button()->bulky($entry->getSymbol(), $entry->getName(), '#')
-                    ->withOnClick($trigger_signal)
-                    ->withHelpTopics(...$entry->getHelpTopics());
+                $button = $f->button()->bulky($entry->getSymbol(), $entry->getName(), '#');
+                if (!ilUtil::isUserInArray(["anon"])) {
+                    $button = $button->withOnClick($trigger_signal);
+                }
+                $button = $button->withHelpTopics(...$entry->getHelpTopics());
             } else {
                 //add Links/Buttons as toplevel entries
                 $pos = array_search($k, array_keys($entries));

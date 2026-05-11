@@ -135,7 +135,7 @@ abstract class ilDashboardBlockGUI extends ilBlockGUI implements ilDesktopItemHa
             if ($cards) {
                 $groupedCards[] = $this->ui->factory()->panel()->sub(
                     (string) $title,
-                    $this->factory->deck($cards)->withNormalCardsSize()
+                    $this->factory->deck($cards)->withSmallCardsSize()
                 );
             }
         }
@@ -379,13 +379,15 @@ abstract class ilDashboardBlockGUI extends ilBlockGUI implements ilDesktopItemHa
             $this->ctrl->setParameter($this, 'presentation', null);
         }
 
-        if ($this->removeMultipleEnabled()) {
-            $this->addBlockCommand(
-                $this->ctrl->getLinkTarget($this, 'manage'),
-                $this->lng->txt('dash_' . $this->getBlockType() . '_remove_multiple'),
-                '',
-                $this->getRemoveModal()
-            );
+        if (!\ilUtil::isLimitedRoleMember()) {
+            if ($this->removeMultipleEnabled()) {
+                $this->addBlockCommand(
+                    $this->ctrl->getLinkTarget($this, 'manage'),
+                    $this->lng->txt('dash_' . $this->getBlockType() . '_remove_multiple'),
+                    '',
+                    $this->getRemoveModal()
+                );
+            }
         }
     }
 

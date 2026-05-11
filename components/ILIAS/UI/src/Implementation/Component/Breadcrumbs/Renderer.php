@@ -44,7 +44,11 @@ class Renderer extends AbstractComponentRenderer
                 $tpl->touchBlock("separator");
             }
             $tpl->setCurrentBlock("crumbs");
-            $tpl->setVariable("CRUMB", $default_renderer->render($crumb));
+            if (!\ilUtil::isUserInArray(["anon"])) {
+                $tpl->setVariable("CRUMB", $default_renderer->render($crumb));
+            } else {
+                $tpl->setVariable("CRUMB", $crumb->getLabel());
+            }
             $tpl->parseCurrentBlock();
             $add_separator = true;
         }

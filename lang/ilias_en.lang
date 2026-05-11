@@ -17575,6 +17575,7 @@ user#:#user_select_course_group#:#Select Course/Group
 user#:#user_set_publishing_options#:#Set publishing options
 user#:#user_set_visibilty_options#:#Set visibility options
 user#:#user_store_last_visited#:#Last Visited
+user#:#show_memberships_on_dashboard#:#Show memberships on dashboard
 user#:#user_visibility_settings#:#Visibility
 user#:#user_visible_in_profile#:#Visible in Personal Data
 user#:#usr_id#:#User ID

@@ -69,6 +69,26 @@ class DashboardViewSettingsTest extends TestCase
         $this->assertFalse($settings->enabledMemberships());
     }
 
+    public function testMembershipsCanBeHiddenByUserPreference()
+    {
+        $user = $this->createConfiguredMock(
+            ilObjUser::class,
+            [
+                'getPref' => '0',
+            ]
+        );
+
+        $settings = new ilPDSelectedItemsBlockViewSettings(
+            $user,
+            ilPDSelectedItemsBlockConstants::VIEW_MY_MEMBERSHIPS,
+            new MemorySetting(),
+            $this->createConfiguredMock(DashboardAccess::class, [])
+        );
+
+        $this->assertFalse($settings->membershipsVisibleForActor());
+        $this->assertFalse($settings->isViewEnabled(ilPDSelectedItemsBlockConstants::VIEW_MY_MEMBERSHIPS));
+    }
+
     public function testSelectedItemsEnabledPerDefault()
     {
         $settings = $this->view_settings;

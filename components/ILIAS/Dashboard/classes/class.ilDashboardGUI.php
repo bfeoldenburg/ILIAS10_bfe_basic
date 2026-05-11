@@ -351,7 +351,7 @@ class ilDashboardGUI implements ilCtrlBaseClassInterface
     private function jumpToMemberships(): void
     {
         $viewSettings = new ilPDSelectedItemsBlockViewSettings($this->user, $this->requested_view);
-        if ($viewSettings->enabledMemberships()) {
+        if ($viewSettings->membershipsVisibleForActor()) {
             $this->ctrl->setParameter($this, 'view', $viewSettings->getMembershipsView());
         }
         $this->ctrl->redirect($this, 'show');

@@ -519,15 +519,15 @@ class ilPropertyFormGUI extends ilFormGUI
             // commands on top
             if (count($this->buttons) > 0 && $this->getShowTopButtons() && (count($this->items) > 2 || $this->force_top_buttons)) {
                 // command buttons
-                foreach ($this->buttons as $button) {
-                    $this->tpl->setCurrentBlock("cmd2");
-                    $this->tpl->setVariable("CMD", $button["cmd"]);
-                    $this->tpl->setVariable("CMD_TXT", $button["text"]);
-                    if ($button["id"] != "") {
-                        $this->tpl->setVariable("CMD2_ID", " id='" . $button["id"] . "_top'");
-                    }
-                    $this->tpl->parseCurrentBlock();
-                }
+//                foreach ($this->buttons as $button) {
+//                    $this->tpl->setCurrentBlock("cmd2");
+//                    $this->tpl->setVariable("CMD", $button["cmd"]);
+//                    $this->tpl->setVariable("CMD_TXT", $button["text"]);
+//                    if ($button["id"] != "") {
+//                        $this->tpl->setVariable("CMD2_ID", " id='" . $button["id"] . "_top'");
+//                    }
+//                    $this->tpl->parseCurrentBlock();
+//                }
                 $this->tpl->setCurrentBlock("commands2");
                 $this->tpl->parseCurrentBlock();
             }

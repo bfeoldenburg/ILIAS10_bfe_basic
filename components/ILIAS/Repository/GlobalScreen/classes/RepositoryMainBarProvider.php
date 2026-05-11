@@ -121,32 +121,33 @@ class RepositoryMainBarProvider extends AbstractStaticMainMenuProvider
             ->withContentWrapper(function () use ($p): Legacy {
                 return $this->dic->ui()->factory()->legacy($p->renderLastVisited());
             });
+        if (!\ilUtil::isLimitedRoleMember()) {
+            $title = $this->dic->language()->txt("mm_favorites");
+            $icon = $this->dic->ui()->factory()->symbol()->icon()->custom(ilUtil::getImagePath("standard/icon_fav.svg"), $title);
 
-        $title = $this->dic->language()->txt("mm_favorites");
-        $icon = $this->dic->ui()->factory()->symbol()->icon()->custom(ilUtil::getImagePath("standard/icon_fav.svg"), $title);
-
-        $entries[] = $this->mainmenu->complex($this->if->identifier('mm_pd_sel_items'))
-                                    ->withSupportsAsynchronousLoading(true)
-                                    ->withTitle($title)
-                                    ->withSymbol($icon)
-                                    ->withContentWrapper(
-                                        static fn(): Legacy =>
-                                            $f->legacy((new ilFavouritesListGUI())->render())
-                                    )
-                                    ->withParent(StandardTopItemsProvider::getInstance()->getPersonalWorkspaceIdentification())
-                                    ->withPosition(10)
-                                    ->withAvailableCallable(
-                                        static fn(): bool =>
-                                            (bool) $dic->settings()->get('rep_favourites', "0")
-                                    )
-                                    ->withVisibilityCallable(
-                                        $access_helper->isUserLoggedIn($access_helper->isRepositoryReadable(
-                                            static function () use ($dic): bool {
-                                                $pdItemsViewSettings = new ilPDSelectedItemsBlockViewSettings($dic->user());
-                                                return $pdItemsViewSettings->allViewsEnabled() || $pdItemsViewSettings->enabledSelectedItems();
-                                            }
-                                        ))
-                                    );
+            $entries[] = $this->mainmenu->complex($this->if->identifier('mm_pd_sel_items'))
+                                        ->withSupportsAsynchronousLoading(true)
+                                        ->withTitle($title)
+                                        ->withSymbol($icon)
+                                        ->withContentWrapper(
+                                            static fn(): Legacy =>
+                                                $f->legacy((new ilFavouritesListGUI())->render())
+                                        )
+                                        ->withParent(StandardTopItemsProvider::getInstance()->getPersonalWorkspaceIdentification())
+                                        ->withPosition(10)
+                                        ->withAvailableCallable(
+                                            static fn(): bool =>
+                                                (bool) $dic->settings()->get('rep_favourites', "0")
+                                        )
+                                        ->withVisibilityCallable(
+                                            $access_helper->isUserLoggedIn($access_helper->isRepositoryReadable(
+                                                static function () use ($dic): bool {
+                                                    $pdItemsViewSettings = new ilPDSelectedItemsBlockViewSettings($dic->user());
+                                                    return $pdItemsViewSettings->allViewsEnabled() || $pdItemsViewSettings->enabledSelectedItems();
+                                                }
+                                            ))
+                                        );
+        }
         return $entries;
     }
 

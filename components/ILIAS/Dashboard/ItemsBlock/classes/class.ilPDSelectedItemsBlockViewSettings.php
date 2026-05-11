@@ -235,7 +235,7 @@ class ilPDSelectedItemsBlockViewSettings implements ilPDSelectedItemsBlockConsta
     {
         switch ($view) {
             case $this->getMembershipsView():
-                return $this->enabledMemberships();
+                return $this->membershipsVisibleForActor();
             case $this->getSelectedItemsView():
                 return $this->enabledSelectedItems();
             case $this->getStudyProgrammeView():
@@ -274,6 +274,12 @@ class ilPDSelectedItemsBlockViewSettings implements ilPDSelectedItemsBlockConsta
     public function enabledMemberships(): bool
     {
         return (int) $this->settings->get('disable_my_memberships', '0') === 0;
+    }
+
+    public function membershipsVisibleForActor(): bool
+    {
+        return $this->enabledMemberships()
+            && $this->actor->getPref('show_pd_memberships') !== '0';
     }
 
     public function enabledSelectedItems(): bool

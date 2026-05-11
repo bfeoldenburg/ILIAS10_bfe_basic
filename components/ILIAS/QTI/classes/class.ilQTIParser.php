@@ -1299,7 +1299,7 @@ class ilQTIParser extends ilSaxParser
             return $matches[1];
         }
 
-        return null;
+        return ""; //null;
     }
 
     protected function cleanInvalidXmlChars(string $xmlContent): string

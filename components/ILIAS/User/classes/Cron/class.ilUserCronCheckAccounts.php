@@ -89,6 +89,27 @@ class ilUserCronCheckAccounts extends ilCronJob
     {
         $status = ilCronJobResult::STATUS_NO_ACTION;
 
+    // mk -------------------------------------------
+    $days_to_wait = 1; //Adjust according to your needs
+
+    $now = time();
+    $days_to_wait_abs = $now - (60 * 60 * 24 * $days_to_wait);
+    $query = "SELECT usr_id " .
+        "FROM usr_data " .
+        "WHERE time_limit_message = '0' " .
+        "AND time_limit_unlimited = '0' " .
+        "AND time_limit_from < " . $this->db->quote($now, "integer") . " " .
+        "AND time_limit_until < " . $this->db->quote($days_to_wait_abs, "integer") . " " .
+        "AND active = '1' ";
+    $res = $this->db->query($query);
+    while ($row = $this->db->fetchObject($res)) {
+        $usr_id = $row->usr_id;
+        //$query = "UPDATE usr_data SET active = '0' WHERE usr_id = '" . $usr_id . "'";
+        $query = "UPDATE usr_data SET active = '0', inactivation_date = '" . date("Y-m-d H:i:s") . "' WHERE inactivation_date IS NULL AND usr_id = '" . $usr_id . "'";
+        $this->db->query($query);
+    }
+    //-------------------------------------------------
+
         $now = time();
         $two_weeks_in_seconds = $now + (60 * 60 * 24 * 14); // #14630
 

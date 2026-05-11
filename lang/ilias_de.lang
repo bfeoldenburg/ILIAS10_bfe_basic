@@ -17574,6 +17574,7 @@ user#:#user_select_course_group#:#Kurs/Gruppe auswählen
 user#:#user_set_publishing_options#:#Veröffentlichung konfigurieren
 user#:#user_set_visibilty_options#:#Sichtbarkeit konfigurieren
 user#:#user_store_last_visited#:#Zuletzt besucht
+user#:#show_memberships_on_dashboard#:#Mitgliedschaften auf dem Dashboard anzeigen
 user#:#user_visibility_settings#:#Sichtbarkeit
 user#:#user_visible_in_profile#:#Sichtbar in den persönlichen Daten
 user#:#usr_id#:#Systeminterne ID
