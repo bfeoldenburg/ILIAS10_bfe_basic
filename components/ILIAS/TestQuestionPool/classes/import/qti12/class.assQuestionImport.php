@@ -247,6 +247,7 @@ class assQuestionImport
             ilSession::set('import_mob_xhtml', $mobs);
         }
 
+        $sourceNic ??= '';
         return ilRTE::_replaceMediaObjectImageSrc($text, 0, $sourceNic);
     }
 

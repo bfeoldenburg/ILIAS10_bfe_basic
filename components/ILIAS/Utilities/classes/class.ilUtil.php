@@ -89,7 +89,7 @@ class ilUtil
             $filename =
                 "./Customizing/skin/"
                 . ilStyleDefinition::getCurrentSkin() . "/"
-                . ilStyleDefinition::getCurrentStyle() . "/"
+                //. ilStyleDefinition::getCurrentStyle() . "/"
                 . (!is_object($styleDefinition) ? "images" : $styleDefinition->getImageDirectory(ilStyleDefinition::getCurrentStyle())) . "/"
                 . $image_name;
 
