@@ -3062,11 +3062,6 @@ class ilObjectListGUI
     ): ?Item {
         $ui = $this->ui;
 
-        // even b tag produced bugs, see #32304
-        $description = $this->refinery->encode()->htmlSpecialCharsAsEntities()->transform(
-            $description
-        );
-
         $this->initItem(
             $ref_id,
             $obj_id,
